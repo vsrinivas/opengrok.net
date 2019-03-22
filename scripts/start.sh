@@ -2,7 +2,7 @@
 
 # Reindex default
 if [ -z "$REINDEX" ]; then
-    REINDEX=10
+    REINDEX=48000
 fi
 
 #START METHOD FOR INDEXING OF OPENGROK
