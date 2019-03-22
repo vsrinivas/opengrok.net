@@ -12,7 +12,7 @@ date +"%F %T Indexing starting"
 opengrok-indexer \
     -J=-d64 -J=-server \
     -a /opengrok/lib/opengrok.jar -- \
-    -s /src -d /data -H -P -S -G --renamedHistory on \
+    -s /src -d /data -H -S -G --renamedHistory on \
     -m 64 \
     --progress \
     --optimize on \
