@@ -1,3 +1,5 @@
+# docker run -d -v /home/vsrinivas/xsrc:/src:ro -p 8080:8080 opengrok126
+
 FROM debian:stable-slim as fetcher
 
 RUN apt-get -y update && apt-get install -y curl jq wget
