@@ -1,3 +1,5 @@
+# docker run -d -v /home/vsrinivas/xsrc:/src:ro -v /home/vsrinivas/xdata:/data -p 8080:8080 opengrok
+
 # docker run -d -v /home/vsrinivas/xsrc:/src:ro -p 8080:8080 opengrok126
 
 FROM debian:stable-slim as fetcher
@@ -5,7 +7,7 @@ FROM debian:stable-slim as fetcher
 RUN apt-get -y update && apt-get install -y curl jq wget
 RUN ["/bin/bash", "-c", "set -o pipefail \
      && curl -sS https://api.github.com/repos/oracle/opengrok/releases \
-     | jq -er '.[0].assets[]|select(.name|startswith(\"opengrok-1.2.6\"))|.browser_download_url' \
+     | jq -er '.[0].assets[]|select(.name|startswith(\"opengrok-1.3.1\"))|.browser_download_url' \
      | wget --no-verbose -i - -O opengrok.tar.gz"]
 
 FROM tomcat:9-jre8
@@ -56,6 +58,9 @@ RUN sed -i -e 's/Valve/Disabled/' /usr/local/tomcat/conf/server.xml
 # add our scripts
 ADD scripts /scripts
 RUN chmod -R +x /scripts
+
+RUN mkdir -p /var/opengrok/etc
+ADD read_only.xml /var/opengrok/etc/read_only.xml
 
 # run
 WORKDIR $CATALINA_HOME

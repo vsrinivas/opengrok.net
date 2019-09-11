@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_212" class="java.beans.XMLDecoder">
+ <object class="org.opengrok.indexer.configuration.Configuration" id="Configuration0">
+  <void property="cmds">
+   <object class="java.util.Collections" method="unmodifiableMap">
+    <object class="java.util.HashMap">
+     <void method="put">
+      <string>org.opengrok.indexer.history.GitRepository</string>
+      <string>/usr/bin/git</string>
+     </void>
+     <void method="put">
+      <string>org.opengrok.indexer.history.MercurialRepository</string>
+      <string>/usr/bin/hg</string>
+     </void>
+     <void method="put">
+      <string>org.opengrok.indexer.history.SubversionRepository</string>
+      <string>/usr/bin/svn</string>
+     </void>
+     <void method="put">
+      <string>org.opengrok.indexer.history.ClearCaseRepository</string>
+      <string>cleartool</string>
+     </void>
+     <void method="put">
+      <string>org.opengrok.indexer.history.PerforceRepository</string>
+      <string>p4</string>
+     </void>
+     <void method="put">
+      <string>org.opengrok.indexer.history.CVSRepository</string>
+      <string>cvs</string>
+     </void>
+    </object>
+   </object>
+  </void>
+     
+<void property="suggesterConfig">
+     <void property="enabled">
+       <boolean>false</boolean>
+     </void>
+  </void>
+
+  <void property="dataRoot">
+   <string>/data</string>
+  </void>
+  <void property="handleHistoryOfRenamedFiles">
+   <boolean>true</boolean>
+  </void>
+  <void id="IgnoredNames0" property="ignoredNames">
+   <void id="IgnoredDirs0" property="ignoredDirs">
+    <void property="items">
+     <void method="add">
+      <string>.bk</string>
+     </void>
+     <void method="add">
+      <string>.hg</string>
+     </void>
+     <void method="add">
+      <string>.bzr</string>
+     </void>
+     <void method="add">
+      <string>.git</string>
+     </void>
+     <void method="add">
+      <string>.svn</string>
+     </void>
+     <void method="add">
+      <string>SCCS</string>
+     </void>
+     <void method="add">
+      <string>.razor</string>
+     </void>
+     <void method="add">
+      <string>RCS</string>
+     </void>
+     <void method="add">
+      <string>CVS</string>
+     </void>
+     <void method="add">
+      <string>CVSROOT</string>
+     </void>
+     <void method="add">
+      <string>.repo</string>
+     </void>
+    </void>
+   </void>
+   <void id="IgnoredFiles0" property="ignoredFiles">
+    <void property="items">
+     <void method="add">
+      <string>.hgtags</string>
+     </void>
+     <void method="add">
+      <string>.hgignore</string>
+     </void>
+     <void method="add">
+      <string>.git</string>
+     </void>
+     <void method="add">
+      <string>.p4config</string>
+     </void>
+     <void method="add">
+      <string>.cvsignore</string>
+     </void>
+    </void>
+   </void>
+  </void>
+  <void property="printProgress">
+   <boolean>true</boolean>
+  </void>
+  <void property="projectsEnabled">
+   <boolean>true</boolean>
+  </void>
+  <void property="ramBufferSize">
+   <double>256.0</double>
+  </void>
+  <void property="sourceRoot">
+   <string>/src</string>
+  </void>
+  <void property="webappCtags">
+   <boolean>true</boolean>
+  </void>
+ </object>
+</java>

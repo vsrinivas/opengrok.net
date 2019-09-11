@@ -10,13 +10,13 @@ fi
 touch $LOCKFILE
 date +"%F %T Indexing starting"
 opengrok-indexer \
-    -J=-d64 -J=-server -J=-Xmx3g \
+    -J=-d64 -J=-server -J=-Xmx8g \
     -a /opengrok/lib/opengrok.jar -- \
-    -s /src -d /data -H -S -G --renamedHistory on \
-    -m 64 \
+    -s /src -d /data -H -S -P --renamedHistory on \
+    -m 256 \
     --progress \
-    --optimize on \
     --webappCtags on \
+    -R /var/opengrok/etc/read_only.xml \
     -W /var/opengrok/etc/configuration.xml -U http://localhost:8080 "$@"
 rm -f $LOCKFILE
 date +"%F %T Indexing finished"
