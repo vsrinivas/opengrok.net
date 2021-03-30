@@ -109,7 +109,7 @@
    <boolean>true</boolean>
   </void>
   <void property="ramBufferSize">
-   <double>256.0</double>
+   <double>36.0</double>
   </void>
   <void property="sourceRoot">
    <string>/src</string>

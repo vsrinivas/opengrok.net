@@ -1,16 +1,15 @@
+
 # docker run -d -v /home/vsrinivas/xsrc:/src:ro -v /home/vsrinivas/xdata:/data -p 8080:8080 opengrok
-
-# docker run -d -v /home/vsrinivas/xsrc:/src:ro -p 8080:8080 opengrok126
-
-FROM debian:stable-slim as fetcher
+FROM debian:testing-slim as fetcher
 
 RUN apt-get -y update && apt-get install -y curl jq wget
 RUN ["/bin/bash", "-c", "set -o pipefail \
      && curl -sS https://api.github.com/repos/oracle/opengrok/releases \
-     | jq -er '.[0].assets[]|select(.name|startswith(\"opengrok-1.3.1\"))|.browser_download_url' \
+     | jq -er '.[0].assets[]|select(.name|startswith(\"opengrok-1.6.0\"))|.browser_download_url' \
      | wget --no-verbose -i - -O opengrok.tar.gz"]
 
-FROM tomcat:9-jre8
+#FROM tomcat:9-jdk14-openjdk-buster
+FROM tomcat:10-jdk15-openjdk-slim-buster
 MAINTAINER OpenGrok developers "opengrok-dev@yahoogroups.com"
 
 #PREPARING OPENGROK BINARIES AND FOLDERS
@@ -23,6 +22,7 @@ RUN mkdir /opengrok && tar -zxvf /opengrok.tar.gz -C /opengrok --strip-component
     ln -s /src /var/opengrok/src
 
 #INSTALLING DEPENDENCIES
+RUN echo "deb http://deb.debian.org/debian buster-backports main" > /etc/apt/sources.list.d/backports.list
 RUN apt-get update && apt-get install -y git subversion mercurial unzip inotify-tools python3 python3-pip && \
     python3 -m pip install /opengrok/tools/opengrok-tools*
 # compile and install universal-ctags
@@ -30,6 +30,10 @@ RUN apt-get install -y pkg-config autoconf build-essential && git clone https://
     cd /root/ctags && ./autogen.sh && ./configure && make && make install && \
     apt-get remove -y autoconf build-essential && apt-get -y autoremove && apt-get -y autoclean && \
     cd /root && rm -rf /root/ctags
+
+RUN apt-get install -y git/buster-backports
+RUN git config --global core.commitGraph true
+RUN git config --global gc.writeCommitGraph true
 
 #ENVIRONMENT VARIABLES CONFIGURATION
 ENV SRC_ROOT /src
@@ -41,9 +45,8 @@ ENV PATH $CATALINA_HOME/bin:$PATH
 ENV CATALINA_BASE /usr/local/tomcat
 ENV CATALINA_HOME /usr/local/tomcat
 ENV CATALINA_TMPDIR /usr/local/tomcat/temp
-ENV JRE_HOME /usr
 ENV CLASSPATH /usr/local/tomcat/bin/bootstrap.jar:/usr/local/tomcat/bin/tomcat-juli.jar
-
+RUN cat /usr/local/tomcat/bin/catalina.sh
 
 # custom deployment to / with redirect from /source
 RUN rm -rf /usr/local/tomcat/webapps/* && \

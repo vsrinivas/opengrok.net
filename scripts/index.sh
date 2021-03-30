@@ -10,10 +10,10 @@ fi
 touch $LOCKFILE
 date +"%F %T Indexing starting"
 opengrok-indexer \
-    -J=-d64 -J=-server -J=-Xmx8g \
+    -J=-Xmx7g \
     -a /opengrok/lib/opengrok.jar -- \
     -s /src -d /data -H -S -P --renamedHistory on \
-    -m 256 \
+    -m 96 \
     --progress \
     --webappCtags on \
     -R /var/opengrok/etc/read_only.xml \
